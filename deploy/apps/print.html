@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KBSAVE QR Posters</title>
+<link rel="icon" href="icon-customer.png">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #e9e7df; font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1f1e1d; }
+  .bar { position: sticky; top: 0; display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 12px 16px; background: #1f1e1d; color: #f5f4ee; font-size: 14px; }
+  .bar button { min-height: 40px; padding: 0 18px; border: 0; border-radius: 10px; background: #c96442; color: #fff; font: inherit; font-weight: 650; cursor: pointer; }
+  .bar a { color: #f5f4ee; }
+  .poster { width: 210mm; height: 297mm; margin: 16px auto; background: #faf9f5; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 22mm 18mm 16mm; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); page-break-after: always; break-after: page; }
+  .poster--agent { background: #1f1e1d; color: #f5f4ee; }
+  .icon { width: 30mm; height: 30mm; border-radius: 7mm; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; font-size: 17mm; line-height: 1.05; margin: 9mm 0 2mm; letter-spacing: -0.01em; }
+  .hi { font-size: 9mm; font-weight: 600; margin: 0 0 3mm; color: #c96442; }
+  .poster--agent .hi { color: #e08a68; }
+  .for { font-size: 5mm; opacity: .75; margin: 0; }
+  .qr { margin: 9mm 0 7mm; background: #fff; padding: 5mm; border-radius: 6mm; border: 1.2mm solid #c96442; }
+  .qr img { width: 92mm; height: 92mm; display: block; image-rendering: pixelated; }
+  .scan { font-size: 7mm; font-weight: 700; margin: 0; }
+  .scan-hi { font-size: 6mm; margin: 1mm 0 0; opacity: .8; }
+  .perks { display: flex; gap: 6mm; justify-content: center; flex-wrap: wrap; margin-top: auto; font-size: 4.2mm; opacity: .85; }
+  .perks span::before { content: "✓ "; color: #c96442; font-weight: 700; }
+  .url { margin-top: 6mm; font-size: 5mm; font-weight: 700; letter-spacing: .03em; }
+  @media print {
+    body { background: none; }
+    .bar { display: none; }
+    .poster { margin: 0; box-shadow: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="bar">
+  Two A4 posters: customer (shop counter / pamphlets) and agent (staff only).
+  <button type="button" onclick="window.print()">Print / save PDF</button>
+  <a href="./">Back to apps</a>
+</div>
+
+<section class="poster">
+  <img class="icon" src="icon-customer.png" alt="">
+  <h1>Download the<br>KBSAVE app</h1>
+  <p class="hi">KBSAVE ऐप डाउनलोड करें</p>
+  <p class="for">Your loan &amp; savings on your phone · लोन और बचत अब आपके फ़ोन पर</p>
+  <div class="qr"><img src="qr-customer.svg" alt="QR code: KBSAVE customer app"></div>
+  <p class="scan">Scan with your phone camera</p>
+  <p class="scan-hi">फ़ोन के कैमरे से स्कैन करें</p>
+  <div class="perks"><span>Pay EMI by UPI</span><span>See balance &amp; dues</span><span>Apply for loan / savings</span><span>Receipts</span></div>
+  <div class="url">kbsave.in/apps</div>
+</section>
+
+<section class="poster poster--agent">
+  <img class="icon" src="icon-agent.png" alt="">
+  <h1>KBSAVE<br>Agent app</h1>
+  <p class="hi">स्टाफ़ के लिए ऐप</p>
+  <p class="for">For KBSAVE staff only — sign in with your staff login</p>
+  <div class="qr"><img src="qr-agent.svg" alt="QR code: KBSAVE Agent app"></div>
+  <p class="scan">Scan with your phone camera</p>
+  <p class="scan-hi">फ़ोन के कैमरे से स्कैन करें</p>
+  <div class="perks"><span>Daily collections</span><span>Customer map</span><span>Receipts on WhatsApp</span><span>Cash handover</span></div>
+  <div class="url">kbsave.in/apps/?app=agent</div>
+</section>
+</body>
+</html>

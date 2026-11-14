@@ -1,0 +1,1 @@
+import"./ui-nDE9lyAU.js";function e(e){window.Capacitor;let t=document.title;document.title=e,window.print(),document.title=t}export{e as t};

@@ -1,0 +1,11 @@
+{
+  "name": "finserve-agent-android",
+  "private": true,
+  "version": "1.0.0",
+  "description": "KBSAVE Agent — Android shell (Capacitor) around web/dist-agent",
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "appId": "in.finserve.customer",
+  "appName": "KBSAVE",
+  "webDir": "../../web/dist-customer",
+  "server": {
+    "androidScheme": "http",
+    "cleartext": false
+  },
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#faf9f5"
+  }
+}

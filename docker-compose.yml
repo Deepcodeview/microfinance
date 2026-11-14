@@ -1,0 +1,45 @@
+services:
+  api:
+    build: ./docker/php
+    ports:
+      - "8095:80"
+    volumes:
+      - ./api:/var/www/api
+      - ./database:/var/www/database
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # Same API code against a separate database, used only by scripts/test.sh — tests never touch your data.
+  api-test:
+    build: ./docker/php
+    environment:
+      DB_NAME: finserve_test
+    volumes:
+      - ./api:/var/www/api
+      - ./database:/var/www/database
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: finserve
+      MYSQL_USER: finserve
+      MYSQL_PASSWORD: finserve_local
+      MYSQL_ROOT_PASSWORD: root_local
+      TZ: UTC
+    command: ["--default-time-zone=+00:00", "--sql-mode=STRICT_ALL_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO"]
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot_local"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  mysql_data:

@@ -1,0 +1,12 @@
+# App downloads: Android needs this type to offer "Install"; never serve an old APK from cache.
+AddType application/vnd.android.package-archive .apk
+<IfModule mod_headers.c>
+  <FilesMatch "\.apk$">
+    Header set Cache-Control "no-cache"
+    Header set Content-Disposition "attachment"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+DirectoryIndex index.html

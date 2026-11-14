@@ -1,0 +1,15 @@
+.env
+node_modules/
+web/dist/
+.DS_Store
+*.log
+api/storage/
+web/dist-agent/
+web/dist-customer/
+mobile/*/node_modules/
+mobile/keystore/
+mobile/*/android/app/build/
+mobile/*/android/.gradle/
+dist-apk/
+dist-cpanel/
+api/app-versions.json

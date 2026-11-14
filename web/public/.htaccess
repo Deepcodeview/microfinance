@@ -1,0 +1,44 @@
+# cPanel / Apache config for the React app in public_html/.
+RewriteEngine On
+
+# Banking data only over HTTPS (works behind cPanel/LiteSpeed proxies too).
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# After uploading a package: open setup until the database matches this version's newest migration.
+# build-cpanel.sh fills in __SCHEMA__; setup writes the marker when the install / update is done.
+RewriteCond %{DOCUMENT_ROOT}/kbsave-setup.php -f
+RewriteCond %{DOCUMENT_ROOT}/finserve/api/storage/schema-__SCHEMA__.done !-f
+RewriteCond %{REQUEST_URI} !^/(kbsave-setup\.php|api/|assets/|apps/)
+RewriteRule ^ /kbsave-setup.php [R=302,L]
+
+# Never serve deployment leftovers if they end up in the web folder by mistake.
+RewriteRule ^(finserve|finserve-cpanel)(/|$) - [F,L]
+RewriteRule \.(zip|sql|gz|env|md|txt)$ - [F,L,NC]
+
+# The API lives in /api (see README); never rewrite it.
+RewriteRule ^api/ - [L]
+
+# Single-page app: unknown paths serve index.html so links like /loans/12 work on refresh.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+<IfModule mod_headers.c>
+  # Never cache the HTML shell or keep it in the back/forward cache (banking data).
+  <FilesMatch "^(index\.html|sw\.js)$">
+    Header set Cache-Control "no-store"
+  </FilesMatch>
+  # Hashed build assets are immutable (sw.js and index.html are deliberately not under /assets/).
+  <If "%{REQUEST_URI} =~ m#^/assets/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "same-origin"
+  Header always set X-Frame-Options "DENY"
+  Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
+</IfModule>
+
+Options -Indexes

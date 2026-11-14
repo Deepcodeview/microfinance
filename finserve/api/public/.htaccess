@@ -1,0 +1,23 @@
+RewriteEngine On
+
+# Apache/cPanel strips the Authorization header unless it is passed through explicitly.
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Every API request goes to the front controller.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+
+Options -Indexes
+
+# PHP warnings must never be printed into API replies (the apps read them as JSON). index.php turns them off,
+# but warnings raised before it runs (e.g. an upload over post_max_size) need the host setting too.
+<IfModule mod_php.c>
+    php_flag display_errors off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag display_errors off
+</IfModule>
+<IfModule LiteSpeed>
+    php_flag display_errors off
+</IfModule>

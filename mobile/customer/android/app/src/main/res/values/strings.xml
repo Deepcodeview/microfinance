@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">KBSAVE</string>
+    <string name="title_activity_main">KBSAVE</string>
+    <string name="package_name">in.finserve.customer</string>
+    <string name="custom_url_scheme">in.finserve.customer</string>
+</resources>

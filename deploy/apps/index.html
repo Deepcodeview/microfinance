@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KBSAVE Apps</title>
+<meta name="description" content="Download the KBSAVE app for Android: customer app and staff (agent) app.">
+<meta name="theme-color" content="#c96442">
+<link rel="icon" href="icon-customer.png">
+<style>
+  :root {
+    --bg: #faf9f5; --surface: #ffffff; --surface-2: #f2f0e8; --text: #1f1e1d; --muted: #6b6a64;
+    --border: rgba(31, 30, 29, 0.12); --accent: #c96442; --accent-hover: #b4553a; --accent-text: #ffffff;
+    --dark-card: #1f1e1d; --dark-card-text: #f5f4ee; --ok: #2e7d4f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1918; --surface: #242321; --surface-2: #2d2c29; --text: #f2f1ec; --muted: #a6a49c;
+      --border: rgba(255, 255, 255, 0.12); --dark-card: #2d2c29; --dark-card-text: #f2f1ec;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.02em; color: inherit; text-decoration: none; }
+  .brand img { width: 34px; height: 34px; border-radius: 9px; }
+  .site { color: var(--muted); font-size: 14px; text-decoration: none; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; font-size: clamp(30px, 6vw, 46px); line-height: 1.1; margin: 22px 0 6px; letter-spacing: -0.01em; }
+  .hi { color: var(--muted); }
+  .lead { color: var(--muted); margin: 0 0 28px; max-width: 560px; }
+  .apps { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .app { border: 1px solid var(--border); border-radius: 18px; background: var(--surface); padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .app--agent { background: var(--dark-card); color: var(--dark-card-text); border-color: transparent; }
+  .app--agent .muted, .app--agent li { color: color-mix(in srgb, var(--dark-card-text) 72%, transparent); }
+  .app__head { display: flex; gap: 14px; align-items: center; }
+  .app__head img { width: 64px; height: 64px; border-radius: 16px; flex: none; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+  .app__name { font-size: 20px; font-weight: 700; line-height: 1.2; }
+  .muted { color: var(--muted); font-size: 14px; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 99px; background: var(--surface-2); color: var(--muted); margin-top: 4px; }
+  .app--agent .tag { background: rgba(255,255,255,.12); color: var(--dark-card-text); }
+  ul { margin: 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  .get { display: flex; gap: 18px; align-items: center; margin-top: auto; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 22px; border-radius: 12px; background: var(--accent); color: var(--accent-text); font-weight: 650; font-size: 16px; text-decoration: none; }
+  .btn:hover { background: var(--accent-hover); }
+  .btn svg { width: 20px; height: 20px; }
+  .btn-col { display: flex; flex-direction: column; gap: 6px; }
+  .qr { background: #fff; border-radius: 12px; padding: 8px; width: 132px; height: 132px; flex: none; }
+  .qr img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+  .qr-note { font-size: 12px; text-align: center; margin-top: 4px; }
+  .steps { margin: 34px 0 10px; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); padding: 22px; }
+  .steps h2 { font-family: Georgia, serif; font-weight: 500; font-size: 24px; margin: 0 0 14px; }
+  .steps ol { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: s; }
+  .steps li { counter-increment: s; margin: 0; padding-left: 40px; position: relative; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; display: grid; place-items: center; }
+  .steps li b { display: block; }
+  .safe { display: flex; gap: 10px; align-items: flex-start; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); }
+  .safe svg { width: 20px; height: 20px; color: var(--ok); flex: none; margin-top: 1px; }
+  footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 22px 0 36px; color: var(--muted); font-size: 14px; }
+  footer a { color: inherit; }
+  .only-one .apps { grid-template-columns: 1fr; max-width: 520px; }
+  .only-one .steps { max-width: 520px; }
+  .only-one .steps ol { grid-template-columns: 1fr; }
+  .hidden { display: none !important; }
+  @media (max-width: 760px) {
+    .apps { grid-template-columns: 1fr; }
+    .steps ol { grid-template-columns: 1fr; }
+    .qr-box { display: none; }
+    .btn { width: 100%; }
+    .btn-col { flex: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="page">
+  <header>
+    <a class="brand" href="/"><img src="icon-customer.png" alt="">KBSAVE</a>
+    <a class="site" href="/">kbsave.in</a>
+  </header>
+
+  <h1 id="title">Get the KBSAVE app<br><span class="hi">KBSAVE ऐप डाउनलोड करें</span></h1>
+  <p class="lead" id="lead">Free for Android phones. On a computer, scan the code with your phone's camera.<br>Android फ़ोन के लिए मुफ़्त। कंप्यूटर पर हैं तो फ़ोन के कैमरे से QR स्कैन करें।</p>
+
+  <div class="apps">
+    <section class="app" id="customer">
+      <div class="app__head">
+        <img src="icon-customer.png" alt="">
+        <div>
+          <div class="app__name">KBSAVE</div>
+          <div class="muted">For customers · ग्राहकों के लिए</div>
+          <span class="tag">Version __VERSION__ · __CUSTOMER_SIZE__ MB</span>
+        </div>
+      </div>
+      <ul>
+        <li>See your loan and savings — balance, dues, statement<br><span class="muted">लोन और बचत का पूरा हिसाब</span></li>
+        <li>Pay your installment by UPI · <span class="muted">UPI से किस्त भरें</span></li>
+        <li>Apply for a loan or savings plan · <span class="muted">लोन या बचत के लिए आवेदन</span></li>
+        <li>Receipts for every payment · <span class="muted">हर भुगतान की रसीद</span></li>
+      </ul>
+      <div class="get">
+        <div class="btn-col">
+          <a class="btn" href="KBSAVE-Customer.apk" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M4 20h16"/></svg>
+            Download app
+          </a>
+          <span class="muted">डाउनलोड करें</span>
+        </div>
+        <div class="qr-box"><div class="qr"><img src="qr-customer.svg" alt="QR code to download the KBSAVE customer app"></div><div class="qr-note muted">Scan to download</div></div>
+      </div>
+    </section>
+
+    <section class="app app--agent" id="agent">
+      <div class="app__head">
+        <img src="icon-agent.png" alt="">
+        <div>
+          <div class="app__name">KBSAVE Agent</div>
+          <div class="muted">For KBSAVE staff only · सिर्फ़ स्टाफ़ के लिए</div>
+          <span class="tag">Version __VERSION__ · __AGENT_SIZE__ MB</span>
+        </div>
+      </div>
+      <ul>
+        <li>Today's collection list and customer map</li>
+        <li>Collect cash or UPI, with receipts on WhatsApp</li>
+        <li>Open accounts, loan requests and KYC on the spot</li>
+        <li>Day-end cash handover</li>
+      </ul>
+      <div class="get">
+        <div class="btn-col">
+          <a class="btn" href="KBSAVE-Agent.apk" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M4 20h16"/></svg>
+            Download Agent app
+          </a>
+          <span class="muted">Sign in with the login your manager gives you.</span>
+        </div>
+        <div class="qr-box"><div class="qr"><img src="qr-agent.svg" alt="QR code to download the KBSAVE Agent app"></div><div class="qr-note muted">Scan to download</div></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="steps">
+    <h2>How to install · कैसे इंस्टॉल करें</h2>
+    <ol>
+      <li><b>Tap Download</b>Wait for it to finish, then tap the file (or open it from Downloads).<br><span class="muted">डाउनलोड पूरा होने पर फ़ाइल पर टैप करें।</span></li>
+      <li><b>Allow this install</b>If the phone asks, tap <i>Settings</i> → turn on <i>Allow from this source</i>, then go back.<br><span class="muted">फ़ोन पूछे तो “इस सोर्स से अनुमति दें” चालू करें।</span></li>
+      <li><b>Tap Install</b>If Play Protect shows a warning, tap <i>More details</i> → <i>Install anyway</i>. Then open the app.<br><span class="muted">चेतावनी आए तो “फिर भी इंस्टॉल करें” दबाएँ।</span></li>
+    </ol>
+    <div class="safe">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v6c0 4.4 3.2 8 7.5 9 4.3-1 7.5-4.6 7.5-9V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>
+      <span>Only download KBSAVE from <b>kbsave.in</b>. Updates come inside the app — you will see “New version available”. KBSAVE staff will never ask for your PIN, password or OTP.<br>KBSAVE सिर्फ़ kbsave.in से डाउनलोड करें। कोई भी आपसे PIN, पासवर्ड या OTP नहीं माँगेगा।</span>
+    </div>
+  </section>
+
+  <footer>
+    <span>© KBSAVE · kbsave.in</span>
+    <span id="links"><a href="./">Both apps</a> · <a href="print.html">Print QR posters</a></span>
+  </footer>
+</div>
+<script>
+  // ?app=customer or ?app=agent (what the printed QR codes open): show just that app.
+  (function () {
+    var app = new URLSearchParams(location.search).get('app')
+    if (app !== 'customer' && app !== 'agent') return
+    document.getElementById('page').classList.add('only-one')
+    document.getElementById(app === 'customer' ? 'agent' : 'customer').classList.add('hidden')
+    if (app === 'agent') {
+      document.getElementById('title').innerHTML = 'KBSAVE Agent app<br><span class="hi">स्टाफ़ के लिए ऐप</span>'
+      document.getElementById('lead').textContent = 'For KBSAVE staff. Download, install and sign in with your staff login.'
+    }
+  })()
+</script>
+</body>
+</html>

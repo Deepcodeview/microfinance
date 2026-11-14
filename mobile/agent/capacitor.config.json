@@ -1,0 +1,13 @@
+{
+  "appId": "in.finserve.agent",
+  "appName": "KBSAVE Agent",
+  "webDir": "../../web/dist-agent",
+  "server": {
+    "androidScheme": "http",
+    "cleartext": false
+  },
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#faf9f5"
+  }
+}
